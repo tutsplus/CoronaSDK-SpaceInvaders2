@@ -168,11 +168,13 @@ endfunction onCollision( event )
 	 params.theInvader.isVisible = false
      physics.removeBody(  params.theInvader )
       table.remove(invadersWhoCanFire,table.indexOf(invadersWhoCanFire,params.theInvader))
-	  physics.removeBody(params.thePlayerBullet)
+	if(table.indexOf(playerBullets,params.thePlayerBullet)~=nil)then
+		physics.removeBody(params.thePlayerBullet)
 	  table.remove(playerBullets,table.indexOf(playerBullets,params.thePlayerBullet))
 	  display.remove(params.thePlayerBullet)
 	  params.thePlayerBullet = nil
 	  end
+	end
 	  if ( event.phase == "began" ) then
 			if(event.object1.name == "invader" and event.object2.name == "playerBullet")then
 				local tm = timer.performWithDelay(10, removeInvaderAndPlayerBullet,1)
